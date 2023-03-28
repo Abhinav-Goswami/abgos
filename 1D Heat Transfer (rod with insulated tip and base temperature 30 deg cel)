@@ -1,0 +1,28 @@
+% Case II: 1D Steady State Heat Conduction using Finite Difference Method for 
+% rod with insulated tip and base temperature 30 deg cel.
+clear all;
+clc;
+
+L=10/100;
+N=10;
+dx=L/(N-1);
+
+x=linspace(0,L,N);
+T=zeros(N,1); % Initial guess values
+Tbase=30;     % Boundary condition, temperature at base=30 deg celcius
+
+% solution
+iter=200;
+for i=1:1:iter
+    T(1,1)=Tbase;
+    for j=2:1:(N-1) 
+        T(j,1)=(T(j-1,1)+T(j+1,1))/2;
+    end
+    T(N,1)=T(N-1,1);
+    plot(x,T,'c')
+    hold on
+end
+plot(x,T,'m-.','LineWidth',2)
+title('Temperature Distribution on plate');
+xlabel({'Length(L)','(in meters)'})
+ylabel({'Temperature','(in deg celcius)'})
